@@ -187,70 +187,24 @@ h1:hover {
   color: var(--text-primary);
 }
 
-.App header {
-  background: linear-gradient(135deg, var(--bg-secondary), var(--bg-tertiary));
-  height: 80px;
-  min-height: 80px;
-  color: var(--text-primary);
-  position: fixed;
-  width: 100%;
-  max-width: 100%;
-  z-index: 99;
-  top: 0;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 20px 24px;
-  font-size: 1rem;
-  box-shadow: 0 4px 20px var(--shadow-soft);
-  backdrop-filter: blur(10px);
-  border-bottom: 1px solid var(--border-primary);
+/* OLD HEADER STYLES REMOVED - SEE LAYOUT RESET SECTION ABOVE */
+
+/* OLD MOBILE TOGGLE REMOVED - SEE LAYOUT RESET SECTION ABOVE */
+
+/* hide visually-only text */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0,0,0,0);
+  white-space: nowrap;
+  border: 0;
 }
 
-.header-left {
-  display: flex;
-  align-items: center;
-  gap: 16px;
-}
-
-.app-logo {
-  height: 50px;
-  width: auto;
-  max-width: 300px;
-  object-fit: contain;
-  filter: drop-shadow(0 0 15px var(--glow-primary));
-  transition: all 0.3s ease;
-}
-
-.app-logo:hover {
-  filter: drop-shadow(0 0 20px var(--glow-primary));
-  transform: scale(1.08);
-}
-
-.mobile-menu-toggle {
-  display: flex !important;
-  align-items: center !important;
-  justify-content: center !important;
-  background: var(--bg-secondary) !important;
-  border: 1px solid var(--border-primary) !important;
-  color: var(--text-primary) !important;
-  font-size: 18px !important;
-  cursor: pointer !important;
-  padding: 8px !important;
-  border-radius: 8px !important;
-  transition: all 0.3s ease !important;
-  z-index: 101 !important;
-  position: relative !important;
-  width: 40px !important;
-  height: 40px !important;
-  min-width: 40px !important;
-  min-height: 40px !important;
-}
-
-.mobile-menu-toggle:hover {
-  background: var(--bg-card);
-  color: var(--accent-primary);
-}
+/* OLD MOBILE TOGGLE HOVER REMOVED */
 
 .App section.sign-in-section {
   display: flex;
@@ -302,14 +256,7 @@ h1:hover {
   66% { transform: translateY(-10px) rotate(-1deg); }
 }
 
-.App section.layout {
-  display: flex;
-  flex-direction: row;
-  height: calc(100vh - 80px);
-  min-height: calc(100vh - 80px);
-  background: var(--bg-primary);
-  margin-top: 80px;
-}
+/* OLD LAYOUT REMOVED - SEE LAYOUT RESET SECTION */
 
 .git-icn {
   animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
@@ -484,35 +431,7 @@ button:disabled {
   height: 7vh;
 }
 
-/* Navbar Styles */
-.navbar {
-  width: 320px;
-  background: linear-gradient(180deg, var(--bg-secondary) 0%, var(--bg-tertiary) 100%);
-  color: var(--text-primary);
-  padding: 24px 20px;
-  overflow-y: auto;
-  display: flex;
-  flex-direction: column;
-  gap: 24px;
-  box-shadow: 4px 0 20px var(--shadow-soft);
-  border-right: 1px solid var(--border-primary);
-  transition: all 0.3s ease;
-}
-
-.navbar.collapsed {
-  width: 0;
-  padding: 0;
-  overflow: hidden;
-}
-
-.main-content {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  overflow: hidden;
-  background: var(--bg-primary);
-  transition: all 0.3s ease;
-}
+/* OLD NAVBAR STYLES REMOVED - SEE LAYOUT RESET SECTION ABOVE */
 
 .main-content.expanded {
   margin-left: 0;
@@ -1217,230 +1136,224 @@ form button {
   }
 }
 
-/* Mobile Menu Overlay */
+/* LAYOUT RESET - COMPLETE REWRITE */
+
+/* Header - Fixed at top */
+.App header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 70px;
+  min-height: 70px;
+  background: linear-gradient(135deg, var(--bg-secondary), var(--bg-tertiary));
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 20px;
+  z-index: 1000;
+  box-shadow: 0 2px 10px var(--shadow-soft);
+  border-bottom: 1px solid var(--border-primary);
+}
+
+.header-left {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex: 1;
+  min-width: 0;
+}
+
+.app-logo {
+  height: 50px;
+  width: auto;
+  max-width: 200px;
+  object-fit: contain;
+  filter: drop-shadow(0 0 15px var(--glow-primary));
+}
+
+.app-logo-mask {
+  width: 50px;
+  height: 50px;
+  background: linear-gradient(135deg, var(--accent-primary), var(--accent-secondary));
+}
+
+.mobile-menu-toggle {
+  display: none;
+  background: none;
+  border: none;
+  color: var(--text-primary);
+  font-size: 24px;
+  cursor: pointer;
+  padding: 8px;
+  border-radius: 6px;
+  transition: all 0.2s ease;
+}
+
+.mobile-menu-toggle:hover {
+  background: var(--bg-card);
+  color: var(--accent-primary);
+}
+
+.sign-out {
+  background: var(--accent-error);
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 500;
+  white-space: nowrap;
+  transition: all 0.2s ease;
+}
+
+.sign-out:hover {
+  background: #e55a6b;
+  transform: translateY(-1px);
+}
+
+/* Main Layout Container */
+.App section.layout {
+  display: flex;
+  height: 100vh;
+  padding-top: 70px;
+  background: var(--bg-primary);
+}
+
+/* Desktop Navbar */
+.navbar {
+  width: 280px;
+  min-width: 280px;
+  background: linear-gradient(180deg, var(--bg-secondary) 0%, var(--bg-tertiary) 100%);
+  border-right: 1px solid var(--border-primary);
+  padding: 20px;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  transition: all 0.3s ease;
+}
+
+.navbar.collapsed {
+  width: 0;
+  min-width: 0;
+  padding: 0;
+  overflow: hidden;
+}
+
+/* Main Content Area */
+.main-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  background: var(--bg-primary);
+  min-width: 0;
+}
+
+/* Mobile Overlay */
 .navbar-overlay {
+  display: none;
   position: fixed;
   top: 0;
   left: 0;
   right: 0;
   bottom: 0;
-  background: rgba(0, 0, 0, 0.5);
-  z-index: 98;
+  background: rgba(0, 0, 0, 0.6);
+  z-index: 999;
   opacity: 0;
-  visibility: hidden;
-  transition: all 0.3s ease;
+  transition: opacity 0.3s ease;
 }
 
 .navbar-overlay.open {
   opacity: 1;
-  visibility: visible;
 }
 
-/* Responsive Design */
+/* MOBILE RESPONSIVE */
 @media (max-width: 768px) {
-  .App section.layout {
-    flex-direction: row;
-    height: calc(100vh - 80px);
+  /* Show mobile menu toggle */
+  .mobile-menu-toggle {
+    display: flex;
   }
   
+  /* Hide desktop navbar by default */
   .navbar {
     position: fixed;
-    top: 80px;
-    left: -320px;
-    height: calc(100vh - 80px);
-    width: 320px;
-    z-index: 100;
-    transition: left 0.3s ease;
-    border-right: 1px solid var(--border-primary);
-    border-bottom: none;
-    padding: 24px 20px;
-    gap: 24px;
-  }
-  
-  .navbar.mobile-open {
+    top: 70px;
     left: 0;
+    width: 280px;
+    height: calc(100vh - 70px);
+    z-index: 1001;
+    transform: translateX(-100%);
+    transition: transform 0.3s ease;
+    box-shadow: 2px 0 10px var(--shadow-medium);
   }
   
+  /* Show navbar when mobile menu is open */
+  .navbar.mobile-open {
+    transform: translateX(0);
+  }
+  
+  /* Override desktop collapse on mobile */
   .navbar.collapsed {
-    width: 320px; /* Override desktop collapse on mobile */
-    padding: 24px 20px;
+    width: 280px;
+    padding: 20px;
+    transform: translateX(-100%);
   }
   
-  .nav-item {
-    padding: 12px 16px;
-    font-size: 15px;
+  .navbar.collapsed.mobile-open {
+    transform: translateX(0);
   }
   
-  .nav-header {
-    padding: 12px 16px 6px;
-    font-size: 16px;
+  /* Show overlay when mobile menu is open */
+  .navbar-overlay {
+    display: block;
   }
   
+  /* Main content takes full width on mobile */
   .main-content {
     width: 100%;
     margin-left: 0;
   }
   
-  .chat-container {
-    margin: 8px;
-    border-radius: 12px;
+  /* Adjust header for mobile */
+  .App header {
+    padding: 0 15px;
   }
   
-  .chat-container-clean {
-    margin: 0;
+  .app-logo {
+    height: 40px;
+    max-width: 150px;
   }
   
-  .chat-header {
-    padding: 16px 20px;
-  }
-  
-  .chat-header h2 {
-    font-size: 24px;
-  }
-  
-  .chat-messages {
-    padding: 16px 20px;
-  }
-  
-  .message-form {
-    padding: 12px 16px;
-    gap: 10px;
-  }
-  
-  .message-form input {
-    padding: 12px 16px;
-    font-size: 16px;
-  }
-  
-  .chat-message-button {
-    width: 44px;
-    height: 44px;
-    min-width: 44px;
-    min-height: 44px;
+  /* Ensure sign out button is always visible */
+  .sign-out {
+    padding: 6px 12px;
     font-size: 14px;
-  }
-  
-  .notification-container {
-    left: 12px;
-    right: 12px;
-    max-width: none;
-    top: 16px;
-  }
-  
-  .modal {
-    margin: 12px;
-    width: calc(100% - 24px);
-    padding: 24px 20px;
-    min-width: 280px;
-    max-width: 400px;
-  }
-  
-  .modal form {
-    gap: 20px;
-  }
-  
-  .modal input {
-    padding: 14px 16px;
-    min-height: 50px;
-    font-size: 15px;
-  }
-  
-  .modal button[type="submit"] {
-    padding: 16px 20px;
-    min-height: 50px;
-    font-size: 15px;
   }
 }
 
+/* Extra small screens */
 @media (max-width: 480px) {
-  .App header {
-    padding: 16px 12px;
-    font-size: 0.9rem;
-  }
-  
   .navbar {
-    padding: 10px 12px;
-    max-height: 180px;
+    width: 260px;
   }
   
-  .nav-item {
-    padding: 10px 12px;
-    font-size: 14px;
+  .App header {
+    padding: 0 10px;
   }
   
-  .nav-header {
-    padding: 10px 12px 4px;
-    font-size: 15px;
-  }
-  
-  .chat-container {
-    margin: 4px;
-    border-radius: 8px;
-  }
-  
-  .chat-header {
-    padding: 12px 16px;
-  }
-  
-  .chat-header h2 {
-    font-size: 20px;
-  }
-  
-  .chat-header p {
-    font-size: 14px;
-  }
-  
-  .chat-messages {
-    padding: 12px 16px;
-  }
-  
-  .message-form {
-    padding: 10px 12px;
+  .header-left {
     gap: 8px;
   }
   
-  .message-form input {
-    padding: 10px 14px;
-    font-size: 15px;
+  .app-logo {
+    height: 35px;
+    max-width: 120px;
   }
   
-  .chat-message-button {
-    width: 40px;
-    height: 40px;
-    min-width: 40px;
-    min-height: 40px;
+  .sign-out {
+    padding: 5px 10px;
     font-size: 13px;
-  }
-  
-  .modal {
-    margin: 12px;
-    padding: 16px;
-  }
-  
-  .modal-header h3 {
-    font-size: 20px;
-  }
-  
-  .modal input {
-    padding: 10px 12px;
-    font-size: 15px;
-  }
-  
-  .modal button[type="submit"] {
-    padding: 12px;
-    font-size: 15px;
-  }
-  
-  .empty-state {
-    padding: 40px 20px;
-  }
-  
-  .empty-state h2 {
-    font-size: 24px;
-  }
-  
-  .empty-state p {
-    font-size: 16px;
   }
 }
 
@@ -1786,3 +1699,40 @@ form button {
   transform: translateX(28px);
   background: var(--text-primary);
 }
+
+/* Mask-based logo rendering to ignore any SVG background */
+.app-logo-mask {
+  width: 500px;              /* make logo big and readable */
+  height: 120px;             /* adjust to logo aspect */
+  display: block;
+  filter: drop-shadow(0 0 24px var(--glow-primary));
+}
+
+/* Full-color SVG img logo */
+.app-logo-img {
+  height: 78px;         /* slightly reduced */
+  width: auto;
+  max-width: 420px;
+  object-fit: contain;
+  display: block;
+}
+
+/* Force navbar logo to stay rectangular */
+.app-logo-img,
+.header-left img.app-logo-img {
+  border-radius: 0 !important;
+  background: transparent !important;
+  clip-path: none !important;
+  mask: none !important;
+  -webkit-mask: none !important;
+}
+
+/* Reduce size on smaller screens */
+@media (max-width: 1024px) {
+  .app-logo-mask { width: 380px; height: 92px; }
+  .app-logo-img { height: 66px; max-width: 360px; }
+}
+@media (max-width: 768px) {
+  .app-logo-mask { width: 300px; height: 72px; }
+  .app-logo-img { height: 56px; max-width: 300px; }
+} 

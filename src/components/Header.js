@@ -8,12 +8,17 @@ import Signout from "./Signout";
 function Header({ onMobileMenuToggle, isMobileMenuOpen }) {
   
   const handleMenuClick = () => {
-    console.log('Header button clicked!');
     if (onMobileMenuToggle) {
       onMobileMenuToggle();
-    } else {
-      console.log('onMobileMenuToggle is not defined!');
     }
+  };
+
+  const logoMaskStyle = {
+    WebkitMask: "url(/ABII.svg) no-repeat center / contain",
+    mask: "url(/ABII.svg) no-repeat center / contain",
+    background: "linear-gradient(135deg, var(--accent-primary), var(--accent-secondary))",
+    width: "50px",
+    height: "50px",
   };
 
   return (
@@ -22,29 +27,12 @@ function Header({ onMobileMenuToggle, isMobileMenuOpen }) {
             <button 
                 className="mobile-menu-toggle"
                 onClick={handleMenuClick}
-                style={{
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  width: '40px',
-                  height: '40px',
-                  background: '#2c3e50',
-                  border: '1px solid #34495e',
-                  borderRadius: '8px',
-                  color: 'white',
-                  cursor: 'pointer',
-                  fontSize: '18px'
-                }}
+                aria-label="Toggle navigation"
             >
-                <FontAwesomeIcon icon={faBars} style={{ fontSize: '16px' }} />
-                {/* Fallback hamburger if FontAwesome doesn't load */}
-                <span style={{ display: 'none' }}>☰</span>
+                <FontAwesomeIcon icon={faBars} />
+                <span className="sr-only">Menu</span>
             </button>
-            <img 
-                src="/ABII.svg" 
-                alt="ABII ChatRoom" 
-                className="app-logo"
-            />
+            <div className="app-logo-mask" aria-label="ABII ChatRoom logo" style={logoMaskStyle} />
         </div>
         <Signout />
     </header>
