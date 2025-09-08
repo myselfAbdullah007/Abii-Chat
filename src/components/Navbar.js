@@ -3,7 +3,7 @@ import firebase from 'firebase/app';
 import 'firebase/firestore';
 import 'firebase/auth';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faPlus, faTimes, faUsers, faGlobe } from '@fortawesome/free-solid-svg-icons';
+import { faPlus, faTimes, faUsers, faGlobe, faSignInAlt, faPlusCircle } from '@fortawesome/free-solid-svg-icons';
 
 function Navbar({ activeSection, onSectionChange, activeRoomId, onSelectRoom, isMobileMenuOpen, isCollapsed }) {
     const firestore = firebase.firestore();
@@ -159,14 +159,14 @@ function Navbar({ activeSection, onSectionChange, activeRoomId, onSelectRoom, is
                             onClick={() => setShowJoinModal(true)}
                             title="Join Room"
                         >
-                            <FontAwesomeIcon icon={faPlus} />
+                            <FontAwesomeIcon icon={faSignInAlt} />
                         </button>
                         <button 
                             className="icon-btn create-btn" 
                             onClick={() => setShowCreateModal(true)}
                             title="Create Room"
                         >
-                            +
+                            <FontAwesomeIcon icon={faPlusCircle} />
                         </button>
                     </div>
                 </div>

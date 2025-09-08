@@ -23,19 +23,6 @@ function ChatRoom({ roomId }) {
     const query = messagesRef.orderBy('createdAt');
     const [messages] = useCollectionData(query, { idField: 'id' });
     const [formValue, setFormValue] = useState('');
-    const [roomData, setRoomData] = useState(null);
-
-    // Get room data for header
-    useEffect(() => {
-        if (roomId) {
-            const unsubscribe = roomRef.onSnapshot((doc) => {
-                if (doc.exists) {
-                    setRoomData(doc.data());
-                }
-            });
-            return () => unsubscribe();
-        }
-    }, [roomRef, roomId]);
 
     const scrollToBottom = () => {
         dummy.current?.scrollIntoView({ behavior: "smooth" });
@@ -64,13 +51,8 @@ function ChatRoom({ roomId }) {
     };
 
     return (
-        <div className="chat-container">
-            <div className="chat-header">
-                <h2>{roomData?.name || 'Chat Room'}</h2>
-                <p>Room Code: <span className="room-code-display">{roomData?.code}</span> • Share this code to invite others!</p>
-            </div>
-
-            <main className="chat-messages">
+        <div className="chat-container-clean">
+            <main className="chat-messages-full">
                 {messages && messages.map((msg, index, pool) => {
                     const prev = pool[index - 1];
                     const next = pool[index + 1];

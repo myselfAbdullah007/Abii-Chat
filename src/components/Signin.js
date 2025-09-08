@@ -38,14 +38,59 @@ function Signin() {
     };
 
     return (
-        <div className="sign-in-container">
-            <img className="sign-in-logo" src="/ABII.svg" alt="ABII ChatRoom" />
-            <h1 className="sign-in-title">Welcome to ABII ChatRoom</h1>
-            <p className="sign-in-subtitle">Connect, chat, and collaborate with your team</p>
-            <button className="sign-in-button" onClick={signInWithGoogle}>
-                <img className="sign-in-google" src="https://img.icons8.com/fluency/480/000000/google-logo.png" alt="Google Logo" />
-                Sign in with Google
-            </button>
+        <div className="modern-login-container">
+            <div className="login-background">
+                <div className="floating-shapes">
+                    <div className="shape shape-1"></div>
+                    <div className="shape shape-2"></div>
+                    <div className="shape shape-3"></div>
+                    <div className="shape shape-4"></div>
+                </div>
+            </div>
+            
+            <div className="login-content">
+                <div className="login-card">
+                    <div className="login-header">
+                        <div className="logo-container">
+                            <img className="login-logo" src="/ABII.svg" alt="ABII ChatRoom" />
+                        </div>
+                        <p className="login-subtitle">Your space for seamless communication</p>
+                    </div>
+                    
+                    <div className="login-body">
+                        <div className="feature-highlights">
+                            <div className="feature-item">
+                                <div className="feature-icon">💬</div>
+                                <span>Real-time messaging</span>
+                            </div>
+                            <div className="feature-item">
+                                <div className="feature-icon">🏠</div>
+                                <span>Create & join rooms</span>
+                            </div>
+                            <div className="feature-item">
+                                <div className="feature-icon">🔔</div>
+                                <span>Smart notifications</span>
+                            </div>
+                        </div>
+                        
+                        <button className="modern-signin-btn" onClick={signInWithGoogle}>
+                            <div className="signin-btn-content">
+                                <img 
+                                    className="google-icon" 
+                                    src="https://img.icons8.com/fluency/48/000000/google-logo.png" 
+                                    alt="Google"
+                                />
+                                <span className="signin-text">Continue with Google</span>
+                            </div>
+                            <div className="signin-btn-glow"></div>
+                        </button>
+                        
+                        <p className="login-footer">
+                            Secure authentication powered by Google
+                        </p>
+                    </div>
+                </div>
+            </div>
         </div>
     );
 }

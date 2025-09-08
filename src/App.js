@@ -76,10 +76,12 @@ function App() {
 
   return (
     <div className="App">
-      <Header 
-        onMobileMenuToggle={toggleMobileMenu}
-        isMobileMenuOpen={isMobile ? isMobileMenuOpen : !isNavbarCollapsed}
-      />
+      {user && (
+        <Header 
+          onMobileMenuToggle={toggleMobileMenu}
+          isMobileMenuOpen={isMobile ? isMobileMenuOpen : !isNavbarCollapsed}
+        />
+      )}
 
       {user ? (
         <section className="layout">
