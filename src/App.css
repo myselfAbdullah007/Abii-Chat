@@ -136,21 +136,23 @@ h1:hover {
 }
 
 .mobile-menu-toggle {
-  display: none;
-  align-items: center;
-  justify-content: center;
-  background: var(--bg-card);
-  border: 1px solid var(--border-primary);
-  color: var(--text-primary);
-  font-size: 20px;
-  cursor: pointer;
-  padding: 8px;
-  border-radius: 8px;
-  transition: all 0.3s ease;
-  z-index: 101;
-  position: relative;
-  width: 40px;
-  height: 40px;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  background: var(--bg-secondary) !important;
+  border: 1px solid var(--border-primary) !important;
+  color: var(--text-primary) !important;
+  font-size: 18px !important;
+  cursor: pointer !important;
+  padding: 8px !important;
+  border-radius: 8px !important;
+  transition: all 0.3s ease !important;
+  z-index: 101 !important;
+  position: relative !important;
+  width: 40px !important;
+  height: 40px !important;
+  min-width: 40px !important;
+  min-height: 40px !important;
 }
 
 .mobile-menu-toggle:hover {
@@ -378,6 +380,26 @@ button:disabled {
   gap: 24px;
   box-shadow: 4px 0 20px var(--shadow-soft);
   border-right: 1px solid var(--border-primary);
+  transition: all 0.3s ease;
+}
+
+.navbar.collapsed {
+  width: 0;
+  padding: 0;
+  overflow: hidden;
+}
+
+.main-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  background: var(--bg-primary);
+  transition: all 0.3s ease;
+}
+
+.main-content.expanded {
+  margin-left: 0;
 }
 
 .nav-section {
@@ -1100,17 +1122,6 @@ form button {
 
 /* Responsive Design */
 @media (max-width: 768px) {
-  .mobile-menu-toggle {
-    display: flex !important;
-    align-items: center;
-    justify-content: center;
-    width: 40px;
-    height: 40px;
-    min-width: 40px;
-    background: var(--bg-card) !important;
-    border: 1px solid var(--border-primary) !important;
-  }
-  
   .App section.layout {
     flex-direction: row;
     height: calc(100vh - 80px);
@@ -1132,6 +1143,11 @@ form button {
   
   .navbar.mobile-open {
     left: 0;
+  }
+  
+  .navbar.collapsed {
+    width: 320px; /* Override desktop collapse on mobile */
+    padding: 24px 20px;
   }
   
   .nav-item {

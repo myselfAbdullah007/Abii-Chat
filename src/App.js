@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
 //Import Styling
 import './App.css';
@@ -37,6 +37,21 @@ function App() {
   const [activeRoomId, setActiveRoomId] = useState(null);
   const [activeSection, setActiveSection] = useState('general');
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [isNavbarCollapsed, setIsNavbarCollapsed] = useState(false);
+  const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
+
+  // Handle window resize
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth <= 768);
+      if (window.innerWidth > 768) {
+        setIsMobileMenuOpen(false); // Close mobile menu on desktop
+      }
+    };
+
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
 
   const handleSectionChange = (section) => {
     setActiveSection(section);
@@ -44,12 +59,18 @@ function App() {
       setActiveRoomId(null);
     }
     // Close mobile menu when section changes
-    setIsMobileMenuOpen(false);
+    if (isMobile) {
+      setIsMobileMenuOpen(false);
+    }
   };
 
   const toggleMobileMenu = () => {
     console.log('Toggle mobile menu clicked, current state:', isMobileMenuOpen);
-    setIsMobileMenuOpen(!isMobileMenuOpen);
+    if (isMobile) {
+      setIsMobileMenuOpen(!isMobileMenuOpen);
+    } else {
+      setIsNavbarCollapsed(!isNavbarCollapsed);
+    }
     console.log('New state will be:', !isMobileMenuOpen);
   };
 
@@ -57,20 +78,21 @@ function App() {
     <div className="App">
       <Header 
         onMobileMenuToggle={toggleMobileMenu}
-        isMobileMenuOpen={isMobileMenuOpen}
+        isMobileMenuOpen={isMobile ? isMobileMenuOpen : !isNavbarCollapsed}
       />
 
       {user ? (
         <section className="layout">
-          <div className={`navbar-overlay ${isMobileMenuOpen ? 'open' : ''}`} onClick={() => setIsMobileMenuOpen(false)}></div>
+          {isMobile && <div className={`navbar-overlay ${isMobileMenuOpen ? 'open' : ''}`} onClick={() => setIsMobileMenuOpen(false)}></div>}
           <Navbar 
             activeSection={activeSection}
             onSectionChange={handleSectionChange}
             activeRoomId={activeRoomId}
             onSelectRoom={setActiveRoomId}
-            isMobileMenuOpen={isMobileMenuOpen}
+            isMobileMenuOpen={isMobile ? isMobileMenuOpen : !isNavbarCollapsed}
+            isCollapsed={!isMobile && isNavbarCollapsed}
           />
-          <div className="main-content">
+          <div className={`main-content ${!isMobile && isNavbarCollapsed ? 'expanded' : ''}`}>
             {activeSection === 'general' ? (
               <GeneralChat />
             ) : activeRoomId ? (

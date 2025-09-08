@@ -5,7 +5,7 @@ import 'firebase/auth';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlus, faTimes, faUsers, faGlobe } from '@fortawesome/free-solid-svg-icons';
 
-function Navbar({ activeSection, onSectionChange, activeRoomId, onSelectRoom, isMobileMenuOpen }) {
+function Navbar({ activeSection, onSectionChange, activeRoomId, onSelectRoom, isMobileMenuOpen, isCollapsed }) {
     const firestore = firebase.firestore();
     const auth = firebase.auth();
     const user = auth.currentUser;
@@ -135,7 +135,7 @@ function Navbar({ activeSection, onSectionChange, activeRoomId, onSelectRoom, is
     };
 
     return (
-        <nav className={`navbar ${isMobileMenuOpen ? 'mobile-open' : ''}`}>
+        <nav className={`navbar ${isMobileMenuOpen ? 'mobile-open' : ''} ${isCollapsed ? 'collapsed' : ''}`}>
             <div className="nav-section">
                 <button 
                     className={`nav-item ${activeSection === 'general' ? 'active' : ''}`}
