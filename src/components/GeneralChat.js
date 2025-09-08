@@ -1,41 +1,19 @@
 import React, { useEffect, useRef, useState } from 'react';
-
-//Import Firbase component
 import firebase from 'firebase/app';
-
-//Import FirebaseAuth component
 import { useCollectionData } from 'react-firebase-hooks/firestore';
-
-// Import FontAwesomeIcon component
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPaperPlane } from '@fortawesome/free-solid-svg-icons';
-
-// Importing Component
 import ChatMessage from './ChatMessage';
 
-function ChatRoom({ roomId }) {
+function GeneralChat() {
     const auth = firebase.auth();
     const firestore = firebase.firestore();
 
     const dummy = useRef();
-    const roomRef = firestore.collection('rooms').doc(roomId);
-    const messagesRef = roomRef.collection('messages');
+    const messagesRef = firestore.collection('general-messages');
     const query = messagesRef.orderBy('createdAt');
     const [messages] = useCollectionData(query, { idField: 'id' });
     const [formValue, setFormValue] = useState('');
-    const [roomData, setRoomData] = useState(null);
-
-    // Get room data for header
-    useEffect(() => {
-        if (roomId) {
-            const unsubscribe = roomRef.onSnapshot((doc) => {
-                if (doc.exists) {
-                    setRoomData(doc.data());
-                }
-            });
-            return () => unsubscribe();
-        }
-    }, [roomRef, roomId]);
 
     const scrollToBottom = () => {
         dummy.current?.scrollIntoView({ behavior: "smooth" });
@@ -64,13 +42,8 @@ function ChatRoom({ roomId }) {
     };
 
     return (
-        <div className="chat-container">
-            <div className="chat-header">
-                <h2>{roomData?.name || 'Chat Room'}</h2>
-                <p>Room Code: <span className="room-code-display">{roomData?.code}</span> • Share this code to invite others!</p>
-            </div>
-
-            <main className="chat-messages">
+        <div className="chat-container-clean">
+            <main className="chat-messages-full">
                 {messages && messages.map((msg, index, pool) => {
                     const prev = pool[index - 1];
                     const next = pool[index + 1];
@@ -83,7 +56,7 @@ function ChatRoom({ roomId }) {
                 <input 
                     value={formValue} 
                     onChange={(e) => setFormValue(e.target.value)} 
-                    placeholder="Type a message in this room..." 
+                    placeholder="Type a message in general chat..." 
                 />
                 <button className="chat-message-button" type="submit" disabled={!formValue.trim()}>
                     <FontAwesomeIcon icon={faPaperPlane} />
@@ -93,4 +66,4 @@ function ChatRoom({ roomId }) {
     );
 }
 
-export default ChatRoom;
+export default GeneralChat; 

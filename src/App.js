@@ -1,8 +1,7 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 //Import Styling
 import './App.css';
-
 
 //Import Firbase component
 import firebase from 'firebase/app';
@@ -17,7 +16,9 @@ import { useAuthState } from 'react-firebase-hooks/auth';
 import Header from './components/Header';
 import SignIn from './components/Signin';
 import ChatRoom from './components/ChatRoom';
-
+import Navbar from './components/Navbar';
+import GeneralChat from './components/GeneralChat';
+import NotificationSystem from './components/NotificationSystem';
 
 firebase.initializeApp({
   apiKey: process.env.REACT_APP_FIREBASE_API_KEY,
@@ -31,22 +32,69 @@ firebase.initializeApp({
 
 const auth = firebase.auth();
 
-
 function App() {
-
   const [user] = useAuthState(auth);
+  const [activeRoomId, setActiveRoomId] = useState(null);
+  const [activeSection, setActiveSection] = useState('general');
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+
+  const handleSectionChange = (section) => {
+    setActiveSection(section);
+    if (section === 'general') {
+      setActiveRoomId(null);
+    }
+    // Close mobile menu when section changes
+    setIsMobileMenuOpen(false);
+  };
+
+  const toggleMobileMenu = () => {
+    console.log('Toggle mobile menu clicked, current state:', isMobileMenuOpen);
+    setIsMobileMenuOpen(!isMobileMenuOpen);
+    console.log('New state will be:', !isMobileMenuOpen);
+  };
 
   return (
     <div className="App">
-      <Header />
+      <Header 
+        onMobileMenuToggle={toggleMobileMenu}
+        isMobileMenuOpen={isMobileMenuOpen}
+      />
 
-      <section>
-        {user ? <ChatRoom /> : <SignIn />}
-      </section>
-
+      {user ? (
+        <section className="layout">
+          <div className={`navbar-overlay ${isMobileMenuOpen ? 'open' : ''}`} onClick={() => setIsMobileMenuOpen(false)}></div>
+          <Navbar 
+            activeSection={activeSection}
+            onSectionChange={handleSectionChange}
+            activeRoomId={activeRoomId}
+            onSelectRoom={setActiveRoomId}
+            isMobileMenuOpen={isMobileMenuOpen}
+          />
+          <div className="main-content">
+            {activeSection === 'general' ? (
+              <GeneralChat />
+            ) : activeRoomId ? (
+              <ChatRoom roomId={activeRoomId} />
+            ) : (
+              <div className="empty-state">
+                <h2>Welcome to Chat Rooms!</h2>
+                <p>Create a new room or join an existing one using a room code.</p>
+              </div>
+            )}
+          </div>
+          <NotificationSystem 
+            user={user}
+            activeRoomId={activeRoomId}
+            activeSection={activeSection}
+          />
+        </section>
+      ) : (
+        <section className="sign-in-section">
+          <SignIn />
+        </section>
+      )}
     </div>
   );
 }
-
 
 export default App;

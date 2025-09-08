@@ -1,17 +1,32 @@
 import React from 'react';
 import firebase from 'firebase/app';
 import 'firebase/auth'; // Ensure Firebase Auth is imported
+import 'firebase/firestore';
 
 function Signin() {
 
     const auth = firebase.auth(); // Initialize auth before the function
+    const firestore = firebase.firestore();
 
     const signInWithGoogle = () => {
         const provider = new firebase.auth.GoogleAuthProvider();
         auth.signInWithPopup(provider)
-            .then((result) => {
+            .then(async (result) => {
                 // Handle successful sign-in
-                console.log('User signed in:', result.user);
+                const user = result.user;
+                console.log('User signed in:', user);
+
+                // Create or update user profile document
+                if (user) {
+                    const userRef = firestore.collection('users').doc(user.uid);
+                    await userRef.set({
+                        uid: user.uid,
+                        displayName: user.displayName || '',
+                        email: user.email || '',
+                        photoURL: user.photoURL || '',
+                        lastLoginAt: firebase.firestore.FieldValue.serverTimestamp()
+                    }, { merge: true });
+                }
             })
             .catch((error) => {
                 if (error.code === 'auth/popup-closed-by-user') {
