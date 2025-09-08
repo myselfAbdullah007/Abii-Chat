@@ -1000,7 +1000,7 @@ form button {
 /* LAYOUT RESET - COMPLETE REWRITE */
 
 /* Header - Fixed at top */
-.App header {
+  .App header {
   position: fixed;
   top: 0;
   left: 0;
@@ -1054,9 +1054,9 @@ form button {
 .mobile-menu-toggle:hover {
   background: var(--bg-card);
   color: var(--accent-primary);
-}
+  }
 
-.sign-out {
+  .sign-out {
   background: var(--accent-error);
   color: white;
   border: none;

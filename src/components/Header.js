@@ -17,7 +17,7 @@ function Header({ onMobileMenuToggle, isMobileMenuOpen }) {
     WebkitMask: "url(/ABII.svg) no-repeat center / contain",
     mask: "url(/ABII.svg) no-repeat center / contain",
     background: "linear-gradient(135deg, var(--accent-primary), var(--accent-secondary))",
-    width: "50px",
+    width: "138px",
     height: "50px",
   };
 
