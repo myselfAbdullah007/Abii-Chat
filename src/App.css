@@ -56,22 +56,100 @@ h1:hover {
 }
 
 /*Sign In*/
-.sign-in-image{
-  width: 300px;
-  height: 100%;
+.sign-in-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 40px;
+  padding: 60px 40px;
+  max-width: 600px;
   margin: 0 auto;
-  pointer-events: none;
-  filter: drop-shadow(0 0 30px var(--glow-primary));
+  background: rgba(30, 30, 63, 0.8);
+  border-radius: 24px;
+  backdrop-filter: blur(20px);
+  border: 1px solid var(--border-primary);
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
+  position: relative;
+  z-index: 10;
+}
+
+.sign-in-logo {
+  width: 400px;
+  height: auto;
+  max-width: 80vw;
+  object-fit: contain;
+  filter: drop-shadow(0 0 40px var(--glow-primary)) drop-shadow(0 0 80px rgba(102, 126, 234, 0.4));
+  animation: float 6s ease-in-out infinite;
+}
+
+.sign-in-title {
+  font-size: 42px;
+  font-weight: 800;
+  color: var(--text-primary);
+  text-align: center;
+  margin: 0;
+  text-shadow: 0 0 30px var(--glow-primary);
+  background: linear-gradient(135deg, var(--accent-primary), var(--accent-secondary));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.sign-in-subtitle {
+  font-size: 20px;
+  color: var(--text-secondary);
+  text-align: center;
+  margin: 0;
+  line-height: 1.6;
+  font-weight: 400;
+  opacity: 0.9;
 }
 
 .sign-in-button {
   color: var(--text-primary);
-  background: var(--bg-card);
-  max-width: 900px;
+  background: linear-gradient(135deg, var(--accent-primary), var(--accent-secondary));
+  max-width: 350px;
+  width: 100%;
   margin: 0 auto;
-  border: 1px solid var(--border-primary);
-  border-radius: 12px;
-  backdrop-filter: blur(10px);
+  border: none;
+  border-radius: 16px;
+  padding: 20px 32px;
+  font-size: 18px;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  box-shadow: 0 8px 32px rgba(102, 126, 234, 0.4);
+  position: relative;
+  overflow: hidden;
+}
+
+.sign-in-button::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+  transition: left 0.5s;
+}
+
+.sign-in-button:hover::before {
+  left: 100%;
+}
+
+.sign-in-button:hover {
+  background: linear-gradient(135deg, var(--accent-secondary), var(--accent-primary));
+  transform: translateY(-4px) scale(1.02);
+  box-shadow: 0 16px 48px rgba(102, 126, 234, 0.6);
+}
+
+.sign-in-button:active {
+  transform: translateY(-2px) scale(0.98);
 }
 
 .sign-in-button .sign-in-google {
@@ -135,6 +213,20 @@ h1:hover {
   gap: 16px;
 }
 
+.app-logo {
+  height: 50px;
+  width: auto;
+  max-width: 300px;
+  object-fit: contain;
+  filter: drop-shadow(0 0 15px var(--glow-primary));
+  transition: all 0.3s ease;
+}
+
+.app-logo:hover {
+  filter: drop-shadow(0 0 20px var(--glow-primary));
+  transform: scale(1.08);
+}
+
 .mobile-menu-toggle {
   display: flex !important;
   align-items: center !important;
@@ -164,20 +256,44 @@ h1:hover {
   display: flex;
   flex-direction: column;
   justify-content: center;
+  align-items: center;
   min-height: 100vh;
-  background: radial-gradient(ellipse at center, var(--bg-secondary) 0%, var(--bg-primary) 70%);
+  background: linear-gradient(135deg, var(--bg-primary) 0%, var(--bg-secondary) 50%, var(--bg-tertiary) 100%);
   position: relative;
+  overflow: hidden;
 }
 
 .App section.sign-in-section::before {
   content: '';
   position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><radialGradient id="g"><stop offset="0%" stop-color="%23667eea" stop-opacity="0.1"/><stop offset="100%" stop-color="%23667eea" stop-opacity="0"/></radialGradient></defs><circle cx="50" cy="50" r="50" fill="url(%23g)"/></svg>');
-  animation: float 6s ease-in-out infinite;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: radial-gradient(circle, rgba(102, 126, 234, 0.1) 0%, transparent 50%);
+  animation: rotate 20s linear infinite;
+}
+
+.App section.sign-in-section::after {
+  content: '';
+  position: absolute;
+  top: 10%;
+  right: 10%;
+  width: 300px;
+  height: 300px;
+  background: radial-gradient(circle, rgba(118, 75, 162, 0.2) 0%, transparent 70%);
+  border-radius: 50%;
+  animation: pulse 4s ease-in-out infinite;
+}
+
+@keyframes rotate {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+@keyframes pulse {
+  0%, 100% { transform: scale(1); opacity: 0.5; }
+  50% { transform: scale(1.2); opacity: 0.8; }
 }
 
 @keyframes float {

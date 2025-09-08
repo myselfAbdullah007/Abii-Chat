@@ -40,7 +40,11 @@ function Header({ onMobileMenuToggle, isMobileMenuOpen }) {
                 {/* Fallback hamburger if FontAwesome doesn't load */}
                 <span style={{ display: 'none' }}>☰</span>
             </button>
-            <h1>Abii ChatRoom</h1>
+            <img 
+                src="/ABII.svg" 
+                alt="ABII ChatRoom" 
+                className="app-logo"
+            />
         </div>
         <Signout />
     </header>

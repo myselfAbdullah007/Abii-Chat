@@ -38,13 +38,15 @@ function Signin() {
     };
 
     return (
-        <>
-            <img className="sign-in-image" src="../SignIn.png" alt="Sign In" />
+        <div className="sign-in-container">
+            <img className="sign-in-logo" src="/ABII.svg" alt="ABII ChatRoom" />
+            <h1 className="sign-in-title">Welcome to ABII ChatRoom</h1>
+            <p className="sign-in-subtitle">Connect, chat, and collaborate with your team</p>
             <button className="sign-in-button" onClick={signInWithGoogle}>
                 <img className="sign-in-google" src="https://img.icons8.com/fluency/480/000000/google-logo.png" alt="Google Logo" />
                 Sign in with Google
             </button>
-        </>
+        </div>
     );
 }
 
