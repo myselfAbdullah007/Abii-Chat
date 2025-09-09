@@ -28,6 +28,12 @@ function ChatRoom({ roomId }) {
         dummy.current?.scrollIntoView({ behavior: "smooth" });
     };
 
+    const inputRef = useRef();
+
+    useEffect(() => {
+        inputRef.current.focus();
+    }, []);
+
     useEffect(() => {
         scrollToBottom();
     });
@@ -63,6 +69,8 @@ function ChatRoom({ roomId }) {
 
             <form onSubmit={sendMessage} className="message-form">
                 <input 
+                    ref={inputRef}
+                    autoFocus
                     value={formValue} 
                     onChange={(e) => setFormValue(e.target.value)} 
                     placeholder="Type a message in this room..." 
