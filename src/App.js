@@ -101,7 +101,6 @@ function App() {
 
       {user ? (
         <section className="layout">
-          {isMobile && <div className={`navbar-overlay ${isMobileMenuOpen ? 'open' : ''}`} onClick={() => setIsMobileMenuOpen(false)}></div>}
           <Navbar 
             activeSection={activeSection}
             onSectionChange={handleSectionChange}

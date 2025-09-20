@@ -2072,3 +2072,76 @@ form button {
     padding: 16px 28px;
   }
 } 
+
+/* Mobile debugging and fixes */
+@media (max-width: 768px) {
+  /* Debug: add visible borders to check layout */
+  .main-content {
+    border: 2px solid red !important;
+  }
+  
+  .chat-container-clean {
+    border: 2px solid blue !important;
+  }
+  
+  .message-form {
+    border: 2px solid green !important;
+  }
+  
+  /* Override global user-select and touch restrictions for mobile */
+  html, body, * {
+    -webkit-touch-callout: auto !important;
+    -webkit-user-select: auto !important;
+    -khtml-user-select: auto !important;
+    -moz-user-select: auto !important;
+    -ms-user-select: auto !important;
+    user-select: auto !important;
+    pointer-events: auto !important;
+    touch-action: manipulation !important;
+  }
+  
+  /* Ensure main content is fully interactive */
+  .main-content {
+    pointer-events: auto !important;
+    position: relative !important;
+    z-index: 1 !important;
+  }
+  
+  /* Ensure chat container is interactive */
+  .chat-container-clean {
+    pointer-events: auto !important;
+    position: relative !important;
+    z-index: 1 !important;
+  }
+  
+  /* Ensure message form is interactive */
+  .message-form {
+    pointer-events: auto !important;
+    position: relative !important;
+    z-index: 10 !important;
+  }
+  
+  /* Ensure input is interactive */
+  .message-form input {
+    pointer-events: auto !important;
+    -webkit-user-select: text !important;
+    user-select: text !important;
+    touch-action: manipulation !important;
+  }
+  
+  /* Ensure button is interactive */
+  .chat-message-button {
+    pointer-events: auto !important;
+    touch-action: manipulation !important;
+  }
+  
+  /* Completely hide navbar on mobile for debugging */
+  .navbar {
+    display: none !important;
+  }
+  
+  /* Hide navbar overlay completely */
+  .navbar-overlay {
+    display: none !important;
+  }
+} 
