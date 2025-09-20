@@ -9,6 +9,21 @@
 html, body {
   -webkit-text-size-adjust: 100%;
   -webkit-tap-highlight-color: transparent;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+/* Allow text selection in input fields and messages */
+input, textarea, .chat-message {
+  -webkit-user-select: text;
+  -khtml-user-select: text;
+  -moz-user-select: text;
+  -ms-user-select: text;
+  user-select: text;
 }
 
 @font-face {
@@ -1175,7 +1190,8 @@ form button {
 
 @media (max-width: 768px) {
   .App section.layout {
-    height: 100dvh; /* ensure correct mobile viewport */
+    height: calc(100vh - 70px); /* subtract header height */
+    height: calc((var(--vh, 1vh) * 100) - 70px); /* use custom vh for mobile */
     display: flex;
     flex-direction: row;
     overflow: hidden;
@@ -1193,10 +1209,11 @@ form button {
     padding: 12px;
     flex: 1;
     min-height: 0;
-    overflow-y: auto;
+    overflow-y: scroll;
     -webkit-overflow-scrolling: touch;
     overscroll-behavior: contain;
     touch-action: pan-y;
+    transform: translate3d(0,0,0); /* force hardware acceleration */
   }
 
   .message-form {
@@ -1215,6 +1232,11 @@ form button {
     flex: 1;
     -webkit-appearance: none;
     -webkit-tap-highlight-color: transparent;
+    -webkit-user-select: text;
+    -moz-user-select: text;
+    -ms-user-select: text;
+    user-select: text;
+    touch-action: manipulation;
   }
 
   .chat-message-button {
@@ -1337,6 +1359,17 @@ form button {
   
   .message-form {
     padding: 8px;
+  }
+  
+  /* Fix for mobile keyboard and viewport */
+  .App {
+    height: 100vh;
+    height: calc(var(--vh, 1vh) * 100);
+  }
+  
+  section.layout {
+    height: calc(100vh - 70px);
+    height: calc((var(--vh, 1vh) * 100) - 70px);
   }
 }
 
