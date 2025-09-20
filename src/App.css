@@ -1395,25 +1395,42 @@ form button {
   }
 }
 
-/* Profile Component Styles */
+/* Profile Component Styles - Mobile-First Redesign */
 .profile-container {
   flex: 1;
-  padding: 30px;
-  background: var(--bg-primary);
-  overflow-y: scroll;
-  overflow-x: hidden;
-  max-width: 900px;
-  margin: 0 auto;
-  height: 100%;
-  box-sizing: border-box;
   display: flex;
   flex-direction: column;
-  scrollbar-width: none; /* Firefox */
-  -ms-overflow-style: none; /* IE and Edge */
+  background: var(--bg-primary);
+  overflow: hidden;
+  height: 100%;
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
 }
 
-.profile-container::-webkit-scrollbar {
+.profile-container.editing {
+  overflow-y: auto;
+  overflow-x: hidden;
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* IE and Edge */
+  -webkit-overflow-scrolling: touch; /* smooth iOS scrolling */
+}
+
+.profile-container.editing::-webkit-scrollbar {
   display: none; /* Chrome, Safari, Opera */
+}
+
+/* Base editing mode layout fixes */
+.profile-container.editing .profile-content {
+  overflow: visible;
+  min-height: fit-content;
+  flex: none; /* Override flex: 1 to allow natural height */
+}
+
+.profile-container.editing .profile-info {
+  overflow: visible;
+  min-height: fit-content;
+  flex: none; /* Override flex: 1 to allow natural height */
 }
 
 .profile-signin-message {
@@ -1421,91 +1438,123 @@ form button {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  min-height: 400px;
+  flex: 1;
   text-align: center;
   color: var(--text-muted);
-  gap: 20px;
+  gap: 24px;
+  padding: 40px 20px;
+}
+
+.profile-signin-message svg {
+  color: var(--accent-primary);
+  filter: drop-shadow(0 0 20px var(--glow-primary));
 }
 
 .profile-signin-message h2 {
-  color: var(--text-secondary);
+  color: var(--text-primary);
   margin: 0;
+  font-size: 24px;
+  font-weight: 700;
 }
 
+.profile-signin-message p {
+  color: var(--text-secondary);
+  font-size: 16px;
+  line-height: 1.5;
+  max-width: 300px;
+}
+
+/* Mobile-First Header */
 .profile-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 30px;
-  padding: 25px;
-  border-bottom: 3px solid var(--border-primary);
-  background: linear-gradient(135deg, rgba(102, 126, 234, 0.1), rgba(118, 75, 162, 0.1));
-  border-radius: 12px;
+  background: linear-gradient(135deg, var(--bg-card), var(--bg-input));
+  border-bottom: 2px solid var(--border-primary);
+  padding: 20px;
+  text-align: center;
   flex-shrink: 0;
+  box-shadow: 0 2px 15px var(--shadow-soft);
 }
 
 .profile-title {
   display: flex;
+  flex-direction: column;
   align-items: center;
-  gap: 15px;
+  gap: 8px;
+  margin-bottom: 16px;
 }
 
 .profile-title svg {
   color: var(--accent-primary);
-  font-size: 32px;
+  font-size: 24px;
+  filter: drop-shadow(0 0 10px var(--glow-primary));
 }
 
 .profile-title h2 {
   color: var(--text-primary);
-  font-size: 32px;
+  font-size: 26px;
   margin: 0;
-  font-weight: 700;
+  font-weight: 800;
+  letter-spacing: 0.5px;
+  background: linear-gradient(135deg, var(--accent-primary), var(--accent-secondary));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
 }
 
 .edit-profile-btn {
   background: linear-gradient(135deg, var(--accent-primary), var(--accent-secondary));
   color: var(--text-primary);
   border: none;
-  padding: 12px 20px;
-  border-radius: 8px;
+  padding: 12px 24px;
+  border-radius: 25px;
   cursor: pointer;
   transition: all 0.3s ease;
   font-size: 14px;
-  box-shadow: 0 4px 15px var(--glow-primary);
+  font-weight: 600;
+  box-shadow: 0 4px 20px var(--glow-primary);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 48px; /* Better touch target */
+  touch-action: manipulation;
 }
 
 .edit-profile-btn:hover {
   transform: translateY(-2px);
-  box-shadow: 0 6px 20px var(--glow-primary);
+  box-shadow: 0 8px 30px var(--glow-primary);
 }
 
+.edit-profile-btn:active {
+  transform: translateY(0);
+}
+
+/* Mobile-First Content Layout */
 .profile-content {
-  display: grid;
-  grid-template-columns: 1fr 2fr;
-  gap: 30px;
-  align-items: start;
   flex: 1;
-  min-height: 0;
+  display: flex;
+  flex-direction: column;
   overflow: hidden;
+  min-height: 0;
 }
 
+
+
+/* Hero Section with Profile Picture */
 .profile-picture-section {
+  background: linear-gradient(135deg, var(--bg-card), var(--bg-input));
+  border-bottom: 2px solid var(--border-primary);
+  padding: 30px 20px;
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 15px;
-  background: var(--bg-card);
-  padding: 25px;
-  border-radius: 16px;
-  border: 2px solid var(--border-primary);
-  box-shadow: 0 8px 32px var(--shadow-soft);
-  height: fit-content;
+  gap: 16px;
+  position: relative;
+  flex-shrink: 0;
 }
 
 .profile-picture-container {
   position: relative;
-  width: 180px;
-  height: 180px;
+  width: 120px;
+  height: 120px;
 }
 
 .profile-picture {
@@ -1513,31 +1562,33 @@ form button {
   height: 100%;
   border-radius: 50%;
   object-fit: cover;
-  border: 6px solid var(--accent-primary);
+  border: 4px solid var(--accent-primary);
   transition: all 0.3s ease;
-  box-shadow: 0 8px 32px var(--glow-primary);
+  box-shadow: 0 12px 40px var(--glow-primary);
+  background: var(--bg-input);
 }
 
 .profile-picture:hover {
   transform: scale(1.05);
-  box-shadow: 0 12px 48px var(--glow-primary);
+  box-shadow: 0 16px 50px var(--glow-primary);
 }
 
 .profile-picture-overlay {
   position: absolute;
-  bottom: 10px;
+  bottom: -8px;
   left: 50%;
   transform: translateX(-50%);
-  background: linear-gradient(135deg, var(--accent-primary), var(--accent-secondary));
-  border-radius: 25px;
-  padding: 12px 16px;
-  box-shadow: 0 6px 20px var(--shadow-medium);
+  background: linear-gradient(135deg, var(--accent-success), #4ecdc4);
+  border-radius: 20px;
+  padding: 8px 16px;
+  box-shadow: 0 4px 20px var(--glow-success);
   transition: all 0.3s ease;
+  border: 2px solid var(--bg-card);
 }
 
 .profile-picture-overlay:hover {
   transform: translateX(-50%) translateY(-2px);
-  box-shadow: 0 8px 25px var(--shadow-medium);
+  box-shadow: 0 6px 25px var(--glow-success);
 }
 
 .file-input {
@@ -1547,213 +1598,233 @@ form button {
 .upload-btn {
   color: var(--text-primary);
   font-size: 12px;
+  font-weight: 600;
   cursor: pointer;
   display: flex;
   align-items: center;
-  gap: 5px;
+  gap: 6px;
   white-space: nowrap;
+  touch-action: manipulation;
+  min-height: 32px;
 }
 
 .upload-btn:hover {
-  opacity: 0.8;
+  opacity: 0.9;
 }
 
-.profile-stats {
-  display: flex;
-  gap: 20px;
-  justify-content: center;
-  margin-top: 20px;
+.upload-btn:active {
+  transform: scale(0.95);
 }
 
-.stat-item {
-  text-align: center;
-  padding: 15px;
-  background: linear-gradient(135deg, rgba(102, 126, 234, 0.1), rgba(118, 75, 162, 0.1));
-  border-radius: 12px;
-  border: 1px solid var(--border-secondary);
-  flex: 1;
-  transition: all 0.3s ease;
-}
 
-.stat-item:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 6px 20px var(--shadow-soft);
-}
 
-.stat-number {
-  font-size: 18px;
-  font-weight: 700;
-  color: var(--accent-primary);
-  margin-bottom: 5px;
-}
-
-.stat-label {
-  font-size: 12px;
-  color: var(--text-secondary);
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
-}
-
+/* Profile Info Section - Mobile-First */
 .profile-info {
-  background: var(--bg-card);
-  padding: 30px;
-  border-radius: 16px;
-  border: 2px solid var(--border-primary);
-  box-shadow: 0 8px 32px var(--shadow-soft);
+  flex: 1;
   display: flex;
   flex-direction: column;
-  gap: 20px;
-  min-height: fit-content;
+  background: var(--bg-primary);
+  overflow: hidden;
+  min-height: 0;
 }
+
+
 
 .profile-field {
   display: flex;
   flex-direction: column;
-  gap: 8px;
-  padding: 12px 0;
-  border-bottom: 1px solid var(--border-secondary);
+  gap: 12px;
+  padding: 20px;
+  border-bottom: 1px solid var(--border-primary);
+  background: var(--bg-card);
+  margin-bottom: 1px;
+  transition: all 0.3s ease;
+}
+
+.profile-field:hover {
+  background: var(--bg-input);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 15px var(--shadow-soft);
 }
 
 .profile-field:last-child {
   border-bottom: none;
+  margin-bottom: 0;
 }
 
 .profile-field label {
   color: var(--accent-primary);
   font-weight: 700;
-  font-size: 16px;
+  font-size: 14px;
   display: flex;
   align-items: center;
-  gap: 12px;
+  gap: 10px;
   text-transform: uppercase;
-  letter-spacing: 0.5px;
+  letter-spacing: 0.8px;
+  margin-bottom: 4px;
 }
 
 .profile-value {
-  background: var(--bg-card);
-  padding: 15px;
-  border-radius: 8px;
+  background: transparent;
+  padding: 16px 0;
   color: var(--text-primary);
-  border: 2px solid var(--border-primary);
-  min-height: 20px;
+  min-height: 24px;
+  font-size: 16px;
+  line-height: 1.5;
+  word-break: break-word;
 }
 
 .bio-value {
-  min-height: 60px;
+  min-height: 48px;
   white-space: pre-wrap;
-  line-height: 1.5;
+  line-height: 1.6;
+  opacity: 0.9;
 }
 
 .profile-input {
   background: var(--bg-input);
   border: 2px solid var(--border-primary);
   color: var(--text-primary);
-  padding: 15px;
-  border-radius: 8px;
+  padding: 16px 18px;
+  border-radius: 12px;
   font-size: 16px;
   transition: all 0.3s ease;
+  min-height: 48px; /* Better touch target */
+  box-sizing: border-box;
+  -webkit-appearance: none;
+  touch-action: manipulation;
 }
 
 .profile-input:focus {
   border-color: var(--accent-primary);
   box-shadow: 0 0 20px var(--glow-primary);
   outline: none;
+  transform: translateY(-1px);
 }
 
 .profile-textarea {
   background: var(--bg-input);
   border: 2px solid var(--border-primary);
   color: var(--text-primary);
-  padding: 15px;
-  border-radius: 8px;
+  padding: 16px 18px;
+  border-radius: 12px;
   font-size: 16px;
   transition: all 0.3s ease;
   resize: vertical;
   font-family: inherit;
-  line-height: 1.5;
+  line-height: 1.6;
+  min-height: 120px;
+  box-sizing: border-box;
+  -webkit-appearance: none;
+  touch-action: manipulation;
 }
 
 .profile-textarea:focus {
   border-color: var(--accent-primary);
   box-shadow: 0 0 20px var(--glow-primary);
   outline: none;
+  transform: translateY(-1px);
 }
 
 .profile-note {
   color: var(--text-muted);
-  font-size: 12px;
+  font-size: 13px;
   font-style: italic;
+  margin-top: 8px;
+  opacity: 0.8;
 }
 
 .char-count {
   color: var(--text-muted);
   font-size: 12px;
   text-align: right;
+  margin-top: 8px;
+  font-weight: 500;
 }
 
+/* Profile Actions - Mobile-First */
 .profile-actions {
   display: flex;
-  gap: 15px;
-  justify-content: center;
-  margin-top: auto;
-  padding-top: 15px;
-  border-top: 1px solid var(--border-primary);
+  gap: 12px;
+  padding: 20px;
   background: var(--bg-card);
-  border-radius: 0 0 16px 16px;
-  margin-left: -30px;
-  margin-right: -30px;
-  padding-left: 30px;
-  padding-right: 30px;
-  padding-bottom: 15px;
+  border-top: 2px solid var(--border-primary);
   flex-shrink: 0;
+  box-shadow: 0 -4px 20px var(--shadow-soft);
+  margin-top: auto; /* Push to bottom */
+  z-index: 10;
 }
 
 .save-btn {
   background: linear-gradient(135deg, var(--accent-success), #4ecdc4);
   color: var(--text-primary);
   border: none;
-  padding: 15px 30px;
-  border-radius: 8px;
+  padding: 16px 24px;
+  border-radius: 25px;
   cursor: pointer;
   transition: all 0.3s ease;
   font-size: 16px;
-  font-weight: 600;
-  box-shadow: 0 4px 15px var(--glow-success);
+  font-weight: 700;
+  box-shadow: 0 4px 20px var(--glow-success);
   display: flex;
   align-items: center;
+  justify-content: center;
   gap: 8px;
+  flex: 1;
+  min-height: 56px; /* Better touch target */
+  touch-action: manipulation;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
 }
 
 .save-btn:hover:not(:disabled) {
   transform: translateY(-2px);
-  box-shadow: 0 6px 20px var(--glow-success);
+  box-shadow: 0 8px 30px var(--glow-success);
+}
+
+.save-btn:active:not(:disabled) {
+  transform: translateY(0);
 }
 
 .save-btn:disabled {
   opacity: 0.6;
   cursor: not-allowed;
   transform: none;
+  background: var(--bg-input);
+  box-shadow: none;
 }
 
 .cancel-btn {
-  background: var(--bg-card);
+  background: var(--bg-input);
   color: var(--text-secondary);
   border: 2px solid var(--border-primary);
-  padding: 15px 30px;
-  border-radius: 8px;
+  padding: 16px 24px;
+  border-radius: 25px;
   cursor: pointer;
   transition: all 0.3s ease;
   font-size: 16px;
-  font-weight: 600;
+  font-weight: 700;
   display: flex;
   align-items: center;
+  justify-content: center;
   gap: 8px;
+  flex: 1;
+  min-height: 56px; /* Better touch target */
+  touch-action: manipulation;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
 }
 
 .cancel-btn:hover:not(:disabled) {
-  background: var(--bg-input);
+  background: var(--bg-card);
   border-color: var(--accent-error);
   color: var(--accent-error);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 15px rgba(255, 107, 122, 0.3);
+}
+
+.cancel-btn:active:not(:disabled) {
+  transform: translateY(0);
 }
 
 .cancel-btn:disabled {
@@ -1761,133 +1832,327 @@ form button {
   cursor: not-allowed;
 }
 
-/* Tablet Profile Styles */
-@media (max-width: 1024px) {
-  .profile-content {
-    grid-template-columns: 1fr;
-    gap: 30px;
-  }
-  
-  .profile-picture-section {
-    order: -1;
-  }
-}
-
-/* Mobile Profile Styles */
-@media (max-width: 768px) {
-  .profile-container {
-    padding: 15px;
-    overflow: hidden;
-  }
-  
+/* Tablet Profile Styles - Maintain Mobile-First Design */
+@media (min-width: 769px) and (max-width: 1024px) {
+  /* Tablet editing mode fixes */
   .profile-container.editing {
-    padding: 12px;
+    overflow-y: auto;
+    height: 100%;
+  }
+  
+  .profile-container.editing .profile-content {
+    flex: none;
+    overflow: visible;
+    min-height: auto;
+  }
+  
+  .profile-container.editing .profile-info {
+    flex: none;
+    overflow: visible;
+    min-height: auto;
   }
   
   .profile-header {
-    flex-direction: column;
-    gap: 20px;
-    text-align: center;
-    padding: 25px 20px;
-  }
-  
-  .profile-title {
-    flex-direction: column;
-    gap: 10px;
+    padding: 24px;
   }
   
   .profile-title h2 {
     font-size: 28px;
   }
   
-  .profile-title svg {
-    font-size: 28px;
-  }
-  
-  .profile-content {
-    grid-template-columns: 1fr;
-    gap: 20px;
-    overflow: hidden;
+  .edit-profile-btn {
+    padding: 14px 28px;
+    font-size: 15px;
   }
   
   .profile-picture-section {
-    padding: 20px;
+    padding: 35px 24px;
   }
   
   .profile-picture-container {
-    width: 150px;
-    height: 150px;
-  }
-  
-  .profile-info {
-    padding: 20px;
-    overflow: hidden;
+    width: 140px;
+    height: 140px;
   }
   
   .profile-field {
-    padding: 15px 0;
+    padding: 24px;
   }
   
   .profile-field label {
-    font-size: 14px;
+    font-size: 15px;
+  }
+  
+  .profile-value {
+    font-size: 17px;
+  }
+  
+  .profile-input,
+  .profile-textarea {
+    padding: 18px 20px;
+    font-size: 17px;
   }
   
   .profile-actions {
-    flex-direction: column;
-    gap: 15px;
-    margin-left: -20px;
-    margin-right: -20px;
-    padding-left: 20px;
-    padding-right: 20px;
+    padding: 24px;
+    gap: 16px;
   }
   
   .save-btn,
   .cancel-btn {
-    width: 100%;
-    justify-content: center;
-    padding: 18px 30px;
-  }
-  
-  .profile-container.editing .profile-actions {
-    margin-left: -15px;
-    margin-right: -15px;
-    padding-left: 15px;
-    padding-right: 15px;
+    padding: 18px 28px;
+    font-size: 17px;
+    min-height: 60px;
   }
 }
 
-/* Extra small screens */
-@media (max-width: 480px) {
+/* Desktop Profile Styles - Enhanced for larger screens */
+@media (min-width: 1025px) {
   .profile-container {
-    padding: 15px;
+    max-width: 600px;
+    margin: 0 auto;
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 8px 40px var(--shadow-soft);
+    border: 1px solid var(--border-primary);
+  }
+  
+  /* Desktop editing mode fixes */
+  .profile-container.editing {
+    overflow-y: auto;
+    max-height: calc(100vh - 40px); /* Prevent overflow */
+  }
+  
+  .profile-container.editing .profile-content {
+    flex: none;
+    min-height: auto;
+  }
+  
+  .profile-container.editing .profile-info {
+    flex: none;
+    min-height: auto;
   }
   
   .profile-header {
-    padding: 20px 15px;
+    padding: 30px;
+  }
+  
+  .profile-title h2 {
+    font-size: 32px;
+  }
+  
+  .edit-profile-btn {
+    padding: 16px 32px;
+    font-size: 16px;
+  }
+  
+  .profile-picture-section {
+    padding: 40px 30px;
+  }
+  
+  .profile-picture-container {
+    width: 160px;
+    height: 160px;
+  }
+  
+  .profile-field {
+    padding: 28px 30px;
+  }
+  
+  .profile-field label {
+    font-size: 16px;
+  }
+  
+  .profile-value {
+    font-size: 18px;
+  }
+  
+  .profile-input,
+  .profile-textarea {
+    padding: 20px 22px;
+    font-size: 18px;
+  }
+  
+  .profile-textarea {
+    min-height: 140px;
+  }
+  
+  .profile-actions {
+    padding: 30px;
+    gap: 20px;
+  }
+  
+  .save-btn,
+  .cancel-btn {
+    padding: 20px 32px;
+    font-size: 18px;
+    min-height: 64px;
+    border-radius: 32px;
+  }
+  
+  /* Hover effects for desktop */
+  .profile-field:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px var(--shadow-soft);
+  }
+  
+  .profile-picture:hover {
+    transform: scale(1.08);
+  }
+}
+
+/* Small mobile screens optimization */
+@media (max-width: 480px) {
+  .profile-header {
+    padding: 16px;
   }
   
   .profile-title h2 {
     font-size: 24px;
   }
   
-  .profile-picture-section,
-  .profile-info {
-    padding: 20px;
+  .edit-profile-btn {
+    padding: 10px 20px;
+    font-size: 13px;
+    min-height: 44px;
+  }
+  
+  .profile-picture-section {
+    padding: 24px 16px;
   }
   
   .profile-picture-container {
-    width: 120px;
-    height: 120px;
+    width: 100px;
+    height: 100px;
   }
   
   .profile-field {
+    padding: 16px;
+  }
+  
+  .profile-field label {
+    font-size: 13px;
+    gap: 8px;
+  }
+  
+  .profile-value {
+    font-size: 15px;
     padding: 12px 0;
   }
   
   .profile-input,
   .profile-textarea {
-    padding: 12px;
-    font-size: 16px;
+    padding: 14px 16px;
+    font-size: 16px; /* Prevent iOS zoom */
+  }
+  
+  .profile-textarea {
+    min-height: 100px;
+  }
+  
+  .profile-actions {
+    padding: 16px;
+    gap: 10px;
+  }
+  
+  .save-btn,
+  .cancel-btn {
+    padding: 14px 20px;
+    font-size: 15px;
+    min-height: 52px;
+    border-radius: 20px;
+  }
+  
+  .char-count {
+    font-size: 11px;
+  }
+  
+  /* iOS specific optimizations */
+  .profile-input,
+  .profile-textarea {
+    -webkit-appearance: none;
+    -webkit-border-radius: 12px;
+    background-clip: padding-box;
+  }
+  
+  /* Improve touch feedback */
+  .edit-profile-btn,
+  .save-btn,
+  .cancel-btn,
+  .upload-btn {
+    -webkit-tap-highlight-color: transparent;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+  }
+  
+  /* Prevent zoom on input focus */
+  .profile-input:focus,
+  .profile-textarea:focus {
+    -webkit-transform: translateZ(0);
+    transform: translateZ(0);
+  }
+}
+
+/* Additional mobile enhancements for all screen sizes */
+@media (max-width: 768px) {
+  /* Improve scrolling performance */
+  .profile-container.editing {
+    transform: translate3d(0, 0, 0);
+    -webkit-transform: translate3d(0, 0, 0);
+    height: 100%;
+    overflow-y: auto;
+  }
+  
+  /* Mobile editing mode layout fixes */
+  .profile-container.editing .profile-content {
+    flex: none;
+    overflow: visible;
+    min-height: auto;
+  }
+  
+  .profile-container.editing .profile-info {
+    flex: none;
+    overflow: visible;
+    min-height: auto;
+  }
+  
+  /* Better visual feedback for touch */
+  .profile-field:active {
+    background: var(--bg-tertiary);
+    transform: scale(0.98);
+  }
+  
+  .edit-profile-btn:active,
+  .save-btn:active,
+  .cancel-btn:active {
+    transform: scale(0.95);
+  }
+  
+  .upload-btn:active {
+    transform: scale(0.9);
+  }
+  
+  /* Improve input field visibility */
+  .profile-input:focus,
+  .profile-textarea:focus {
+    background: var(--bg-card);
+    border-color: var(--accent-primary);
+    box-shadow: 0 0 25px var(--glow-primary);
+  }
+  
+  /* Better spacing for touch targets */
+  .profile-field {
+    margin-bottom: 2px;
+  }
+  
+  .profile-actions {
+    padding-bottom: max(20px, env(safe-area-inset-bottom, 20px));
+    position: sticky;
+    bottom: 0;
+    margin-top: auto;
   }
 }
 

@@ -172,7 +172,6 @@ function Profile() {
         <div className={`profile-container ${editing ? 'editing' : ''}`}>
             <div className="profile-header">
                 <div className="profile-title">
-                    <FontAwesomeIcon icon={faUser} />
                     <h2>My Profile</h2>
                 </div>
                 {!editing && (
@@ -212,17 +211,7 @@ function Profile() {
                         )}
                     </div>
                     
-                    {/* User Stats */}
-                    <div className="profile-stats">
-                        <div className="stat-item">
-                            <div className="stat-number">{new Date().getFullYear() - new Date(user.metadata.creationTime).getFullYear()}</div>
-                            <div className="stat-label">Years Active</div>
-                        </div>
-                        <div className="stat-item">
-                            <div className="stat-number">{new Date(user.metadata.creationTime).toLocaleDateString()}</div>
-                            <div className="stat-label">Member Since</div>
-                        </div>
-                    </div>
+
                 </div>
 
                 {/* Profile Information */}
@@ -280,11 +269,7 @@ function Profile() {
                         )}
                     </div>
 
-                    <div className="profile-field">
-                        <label>📧 Email</label>
-                        <div className="profile-value">{profile.email}</div>
-                        <small className="profile-note">Email cannot be changed here</small>
-                    </div>
+
                 </div>
 
                 {/* Action Buttons */}
