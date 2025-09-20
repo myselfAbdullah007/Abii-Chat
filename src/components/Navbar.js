@@ -10,7 +10,7 @@ function Navbar({ activeSection, onSectionChange, activeRoomId, onSelectRoom, is
     const auth = firebase.auth();
     const user = auth.currentUser;
 
-    console.log('Navbar render - isMobileMenuOpen:', isMobileMenuOpen);
+
 
     const [rooms, setRooms] = useState([]);
     const [showJoinModal, setShowJoinModal] = useState(false);

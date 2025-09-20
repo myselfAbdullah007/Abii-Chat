@@ -90,6 +90,8 @@ function App() {
     console.log('New state will be:', !isMobileMenuOpen);
   };
 
+
+
   return (
     <div className="App">
       {user && (
@@ -101,6 +103,7 @@ function App() {
 
       {user ? (
         <section className="layout">
+          {isMobile && <div className={`navbar-overlay ${isMobileMenuOpen ? 'open' : ''}`} onClick={() => setIsMobileMenuOpen(false)}></div>}
           <Navbar 
             activeSection={activeSection}
             onSectionChange={handleSectionChange}

@@ -2073,75 +2073,65 @@ form button {
   }
 } 
 
-/* Mobile debugging and fixes */
+
+
+/* Mobile responsive fixes */
 @media (max-width: 768px) {
-  /* Debug: add visible borders to check layout */
-  .main-content {
-    border: 2px solid red !important;
+  /* Show mobile menu toggle */
+  .mobile-menu-toggle {
+    display: flex;
   }
   
-  .chat-container-clean {
-    border: 2px solid blue !important;
-  }
-  
-  .message-form {
-    border: 2px solid green !important;
-  }
-  
-  /* Override global user-select and touch restrictions for mobile */
-  html, body, * {
-    -webkit-touch-callout: auto !important;
-    -webkit-user-select: auto !important;
-    -khtml-user-select: auto !important;
-    -moz-user-select: auto !important;
-    -ms-user-select: auto !important;
-    user-select: auto !important;
-    pointer-events: auto !important;
-    touch-action: manipulation !important;
-  }
-  
-  /* Ensure main content is fully interactive */
-  .main-content {
-    pointer-events: auto !important;
-    position: relative !important;
-    z-index: 1 !important;
-  }
-  
-  /* Ensure chat container is interactive */
-  .chat-container-clean {
-    pointer-events: auto !important;
-    position: relative !important;
-    z-index: 1 !important;
-  }
-  
-  /* Ensure message form is interactive */
-  .message-form {
-    pointer-events: auto !important;
-    position: relative !important;
-    z-index: 10 !important;
-  }
-  
-  /* Ensure input is interactive */
-  .message-form input {
-    pointer-events: auto !important;
-    -webkit-user-select: text !important;
-    user-select: text !important;
-    touch-action: manipulation !important;
-  }
-  
-  /* Ensure button is interactive */
-  .chat-message-button {
-    pointer-events: auto !important;
-    touch-action: manipulation !important;
-  }
-  
-  /* Completely hide navbar on mobile for debugging */
+  /* Hide desktop navbar by default */
   .navbar {
-    display: none !important;
+    position: fixed;
+    top: 70px;
+    left: 0;
+    width: 280px;
+    height: calc(100vh - 70px);
+    z-index: 1001;
+    transform: translateX(-100%);
+    transition: transform 0.3s ease;
+    box-shadow: 2px 0 10px var(--shadow-medium);
+    pointer-events: none;
   }
   
-  /* Hide navbar overlay completely */
-  .navbar-overlay {
-    display: none !important;
+  /* Show navbar when mobile menu is open */
+  .navbar.mobile-open {
+    transform: translateX(0);
+    pointer-events: auto;
+  }
+  
+  /* Override desktop collapse on mobile */
+  .navbar.collapsed {
+    width: 280px;
+    padding: 20px;
+    transform: translateX(-100%);
+  }
+  
+  .navbar.collapsed.mobile-open {
+    transform: translateX(0);
+  }
+  
+  /* Main content takes full width on mobile */
+  .main-content {
+    width: 100%;
+    margin-left: 0;
+  }
+  
+  /* Adjust header for mobile */
+  .App header {
+    padding: 0 15px;
+  }
+  
+  .app-logo {
+    height: 40px;
+    max-width: 150px;
+  }
+  
+  /* Ensure sign out button is always visible */
+  .sign-out {
+    padding: 6px 12px;
+    font-size: 14px;
   }
 } 
