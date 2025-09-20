@@ -3,7 +3,7 @@ import firebase from 'firebase/app';
 import 'firebase/firestore';
 import 'firebase/auth';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faPlus, faTimes, faUsers, faGlobe, faSignInAlt, faPlusCircle } from '@fortawesome/free-solid-svg-icons';
+import { faPlus, faTimes, faUsers, faGlobe, faSignInAlt, faPlusCircle, faUser } from '@fortawesome/free-solid-svg-icons';
 
 function Navbar({ activeSection, onSectionChange, activeRoomId, onSelectRoom, isMobileMenuOpen, isCollapsed }) {
     const firestore = firebase.firestore();
@@ -146,6 +146,17 @@ function Navbar({ activeSection, onSectionChange, activeRoomId, onSelectRoom, is
                 >
                     <FontAwesomeIcon icon={faGlobe} />
                     General Chat
+                </button>
+
+                <button 
+                    className={`nav-item ${activeSection === 'profile' ? 'active' : ''}`}
+                    onClick={() => {
+                        onSectionChange && onSectionChange('profile');
+                        onSelectRoom && onSelectRoom(null);
+                    }}
+                >
+                    <FontAwesomeIcon icon={faUser} />
+                    My Profile
                 </button>
             </div>
 

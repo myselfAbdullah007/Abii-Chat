@@ -13,7 +13,7 @@ import { faPaperPlane } from '@fortawesome/free-solid-svg-icons';
 // Importing Component
 import ChatMessage from './ChatMessage';
 
-function ChatRoom({ roomId }) {
+function ChatRoom({ roomId, onAvatarClick }) {
     const auth = firebase.auth();
     const firestore = firebase.firestore();
 
@@ -62,7 +62,7 @@ function ChatRoom({ roomId }) {
                 {messages && messages.map((msg, index, pool) => {
                     const prev = pool[index - 1];
                     const next = pool[index + 1];
-                    return <ChatMessage key={msg.id} message={msg} neighbour={{ prev, next }} />;
+                    return <ChatMessage key={msg.id} message={msg} neighbour={{ prev, next }} onAvatarClick={onAvatarClick} />;
                 })}
                 <span ref={dummy}></span>
             </main>

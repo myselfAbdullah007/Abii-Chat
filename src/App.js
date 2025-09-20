@@ -7,6 +7,7 @@ import './App.css';
 import firebase from 'firebase/app';
 import 'firebase/firestore';
 import 'firebase/auth';
+import 'firebase/storage';
 import 'firebase/analytics';
 
 //Import FirebaseAuth component
@@ -18,6 +19,8 @@ import SignIn from './components/Signin';
 import ChatRoom from './components/ChatRoom';
 import Navbar from './components/Navbar';
 import GeneralChat from './components/GeneralChat';
+import Profile from './components/Profile';
+import UserProfile from './components/UserProfile';
 import NotificationSystem from './components/NotificationSystem';
 
 firebase.initializeApp({
@@ -39,6 +42,7 @@ function App() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isNavbarCollapsed, setIsNavbarCollapsed] = useState(false);
   const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
+  const [viewingUserId, setViewingUserId] = useState(null);
 
   // Handle window resize and mobile viewport
   useEffect(() => {
@@ -90,6 +94,14 @@ function App() {
     console.log('New state will be:', !isMobileMenuOpen);
   };
 
+  const handleAvatarClick = React.useCallback((userId) => {
+    setViewingUserId(userId);
+  }, []);
+
+  const closeUserProfile = () => {
+    setViewingUserId(null);
+  };
+
 
 
   return (
@@ -113,16 +125,30 @@ function App() {
             isCollapsed={!isMobile && isNavbarCollapsed}
           />
           <div className={`main-content ${!isMobile && isNavbarCollapsed ? 'expanded' : ''}`}>
-            {activeSection === 'general' ? (
-              <GeneralChat />
-            ) : activeRoomId ? (
-              <ChatRoom roomId={activeRoomId} />
-            ) : (
-              <div className="empty-state">
-                <h2>Welcome to Chat Rooms!</h2>
-                <p>Create a new room or join an existing one using a room code.</p>
-              </div>
-            )}
+
+            {(() => {
+              if (activeSection === 'general') {
+                return <GeneralChat key="general-chat" onAvatarClick={handleAvatarClick} />;
+              } else if (activeSection === 'profile') {
+                return <Profile />;
+                              } else if (activeSection === 'rooms' && activeRoomId) {
+                  return <ChatRoom key={`room-${activeRoomId}`} roomId={activeRoomId} onAvatarClick={handleAvatarClick} />;
+              } else if (activeSection === 'rooms') {
+                return (
+                  <div className="empty-state">
+                    <h2>Welcome to Chat Rooms!</h2>
+                    <p>Create a new room or join an existing one using a room code.</p>
+                  </div>
+                );
+              } else {
+                return (
+                  <div className="empty-state">
+                    <h2>Welcome to ABII ChatRoom!</h2>
+                    <p>Select a section from the navbar to get started.</p>
+                  </div>
+                );
+              }
+            })()}
           </div>
           <NotificationSystem 
             user={user}
@@ -134,6 +160,14 @@ function App() {
         <section className="sign-in-section">
           <SignIn />
         </section>
+      )}
+      
+      {/* User Profile Modal */}
+      {viewingUserId && (
+        <UserProfile 
+          userId={viewingUserId} 
+          onClose={closeUserProfile} 
+        />
       )}
     </div>
   );

@@ -5,7 +5,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPaperPlane } from '@fortawesome/free-solid-svg-icons';
 import ChatMessage from './ChatMessage';
 
-function GeneralChat() {
+function GeneralChat({ onAvatarClick }) {
     const auth = firebase.auth();
     const firestore = firebase.firestore();
 
@@ -47,7 +47,7 @@ function GeneralChat() {
                 {messages && messages.map((msg, index, pool) => {
                     const prev = pool[index - 1];
                     const next = pool[index + 1];
-                    return <ChatMessage key={msg.id} message={msg} neighbour={{ prev, next }} />;
+                    return <ChatMessage key={msg.id} message={msg} neighbour={{ prev, next }} onAvatarClick={onAvatarClick} />;
                 })}
                 <span ref={dummy}></span>
             </main>
